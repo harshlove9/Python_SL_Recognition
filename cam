@@ -1,0 +1,51 @@
+#from webcam
+
+from keras.models import load_model
+import argparse
+import pickle
+import cv2
+import sys
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", help="path to input image we are going to classify")
+ap.add_argument("-m", "--model", required=True,	help="path to trained Keras model")
+ap.add_argument("-l", "--label-bin", required=True,	help="path to label binarizer")
+ap.add_argument("-w", "--width", type=int, default=28, help="target spatial dimension width")
+ap.add_argument("-e", "--height", type=int, default=28, help="target spatial dimension height")
+ap.add_argument("-f", "--flatten", type=int, default=-1,help="whether or not we should flatten the image")
+args = vars(ap.parse_args())
+model = load_model(args["model"])
+lb = pickle.loads(open(args["label_bin"], "rb").read())
+model = load_model(args["model"])
+lb = pickle.loads(open(args["label_bin"], "rb").read())
+video_capture = cv2.VideoCapture(0)
+while True:
+    # Capture frame-by-frame
+ ret, image = video_capture.read()
+ #cv2.imshow("Image", image)
+ output = image.copy()
+ image = cv2.resize(image, (32, 32))
+ image = image.astype("float") / 255.0
+ image = image.reshape((1, image.shape[0], image.shape[1],image.shape[2]))
+ preds = model.predict(image)
+ i = preds.argmax(axis=1)[0]
+ label = lb.classes_[i]
+ text = "{}: {:.2f}%".format(label, preds[0][i] * 100)
+ #print(text);
+ 
+
+ #if cv2.waitKey(1) & 0xFF == ord('p'):#Pause
+  #     isRecording=false
+ #if cv2.waitKey(1) & 0xFF == ord('c'):#Continue
+  #     isRecording=true
+ if text != "nothing" :
+  cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7,(0, 0, 255), 2)
+ # show the output image
+  cv2.imshow("Image", output)
+ if cv2.waitKey(1) & 0xFF == ord('q'):
+  break	
+	
+video_capture.release()
+cv2.destroyAllWindows()
+
+
+	
