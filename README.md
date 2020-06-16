@@ -14,4 +14,4 @@ FOR Trainnig: Run SLR_train_cnn
 
 
 
-FOR Testing; Run predict
+FOR Testing: Run predict
