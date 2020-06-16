@@ -11,4 +11,7 @@ identified using Deep Learning (DL) approach.
 
 
 FOR Trainnig: Run SLR_train_cnn
+
+
+
 FOR Testing; Run predict
