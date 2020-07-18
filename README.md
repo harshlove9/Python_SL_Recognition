@@ -18,4 +18,6 @@ Dataset:  Images of hand signals for English alphabet Sign Language (EASL) are g
 CONCLUSION: A deep neural network-based English Sign Language detection based on hand gestures images are designed and validated in this paper. The work analyses a three-layer              convolution network with batch normalization for hand gesture detection. Deep neural network for English alphabet sign language recognition is the feature                     vector which including whole images containing all the aspects of the sign considered. Using deep neural network, the accuracy is effectively for English alphabet               sign language recognition. In future work, there are some alphabet sample is not accurate. So, increase the accuracy of its alphabet. English alphabet sign language            recognition requires more number of convolution block and try different optimizer method for effective accuracy of sign language.
 
 
+FOR Trainnig: Run SLR_train_cnn
 
+FOR Testing: Run predict
